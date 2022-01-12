@@ -1,15 +1,16 @@
+import dotenv from 'dotenv';
 dotenv.config();
+
 import express from 'express';
 const app = express();
-import dotenv from 'dotenv';
 import mssql from 'mssql';
 import bodyParser from 'body-parser';
 
 const config: mssql.config = {
-	user: 'sa',
-	password: '1234',
-	server: 'MONSTER',
-	database: 'MechanicDatabase',
+	user: process.env.MSSQL_USERNAME,
+	password: process.env.MSSQL_PASSWORD,
+	server: process.env.MSSQL_SERVERNAME as string,
+	database: process.env.MSSQL_DATABASE,
 	options: {
 		trustedConnection: true,
 		trustServerCertificate: true,
