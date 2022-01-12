@@ -1,3 +1,4 @@
+dotenv.config();
 import express from 'express';
 const app = express();
 import dotenv from 'dotenv';
@@ -15,11 +16,9 @@ const config: mssql.config = {
 		useUTC: true,
 	},
 };
-dotenv.config();
-
-export let connection: mssql.ConnectionPool;
 
 app.use(bodyParser.json());
+
 import customers from './customers';
 import employees from './employees';
 import jobs from './jobs';
@@ -30,6 +29,7 @@ app.use('/employees', employees);
 app.use('/jobs', jobs);
 app.use('/parts', parts);
 
+export let connection: mssql.ConnectionPool;
 app.listen(process.env.PORT, async () => {
 	connection = await mssql.connect(config);
 	// const result = await mssql.query(`select * from Customer`);
