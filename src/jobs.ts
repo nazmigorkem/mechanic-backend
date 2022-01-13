@@ -12,7 +12,14 @@ app.get('/', async (req: express.Request, res: express.Response) => {
 		const element = result.recordset[i];
 		element.startDate = (element.startDate as Date).toLocaleDateString();
 	}
-	res.send(result.recordset);
+	const result2 = await mssql.query(`SELECT * FROM finishedJobs ORDER BY endDate desc`);
+	for (let i = 0; i < result2.recordset.length; i++) {
+		const element = result2.recordset[i];
+		element.startDate = (element.startDate as Date).toLocaleDateString();
+		element.endDate = (element.endDate as Date).toLocaleDateString();
+		// element.totalTimeSpent = element.totalTimeSpent + (element.totalTimeSpent == 1 ? ' Day': ' Days')
+	}
+	res.send({onGoingJobs: result.recordset, finishedJobs: result2.recordset});
 });
 
 app.get('/:id', async (req: express.Request, res: express.Response) => {
