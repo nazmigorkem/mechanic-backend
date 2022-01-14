@@ -19,7 +19,7 @@ app.get('/', async (req: express.Request, res: express.Response) => {
 		element.endDate = (element.endDate as Date).toLocaleDateString();
 		// element.totalTimeSpent = element.totalTimeSpent + (element.totalTimeSpent == 1 ? ' Day': ' Days')
 	}
-	res.send({onGoingJobs: result.recordset, finishedJobs: result2.recordset});
+	res.send({ onGoingJobs: result.recordset, finishedJobs: result2.recordset });
 });
 
 app.get('/:id', async (req: express.Request, res: express.Response) => {

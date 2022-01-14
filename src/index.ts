@@ -24,11 +24,13 @@ import customers from './customers';
 import employees from './employees';
 import jobs from './jobs';
 import parts from './parts';
+import suppliers from './suppliers';
 
 app.use('/customers', customers);
 app.use('/employees', employees);
 app.use('/jobs', jobs);
 app.use('/parts', parts);
+app.use('/suppliers', suppliers);
 
 export let connection: mssql.ConnectionPool;
 app.listen(process.env.PORT, async () => {
