@@ -37,4 +37,13 @@ app.post('/:id', async (req: express.Request, res: express.Response) => {
 	res.send('200');
 });
 
+app.get('/:id/summary', async (req: express.Request, res: express.Response) => {
+	const { recordset: summaryData } = await connection.request().input('receiptID', req.params.id).execute('sp_calculateTotalPrice');
+	const { recordset: parts } = await mssql.query(
+		`SELECT f.receiptID, s.brand, s.serialNumber, s.partType, r.amount, s.price FROM finishedJobs f inner join ReceiptSparePart r on f.receiptID = r.receiptID inner join SparePart s on r.serialNumber = s.serialNumber where f.receiptID = ${req.params.id}
+		`
+	);
+	res.send({ customerInfo: summaryData[0], parts: parts });
+});
+
 export default app;

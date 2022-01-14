@@ -36,6 +36,6 @@ export let connection: mssql.ConnectionPool;
 app.listen(process.env.PORT, async () => {
 	connection = await mssql.connect(config);
 	// const result = await mssql.query(`select * from Customer`);
-
+	console.clear();
 	console.log(`Listening on port ${process.env.PORT}.`);
 });
