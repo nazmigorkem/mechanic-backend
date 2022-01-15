@@ -37,6 +37,25 @@ app.post('/:id', async (req: express.Request, res: express.Response) => {
 	res.send('200');
 });
 
+app.post('/new/commit', async (req: express.Request, res: express.Response) => {
+	const { firstName, lastname, contactNumber, chasisNumber, licensePlate, brand, model, motorType, gearType, vehicleKm, isInsured } = req.body;
+	connection
+		.request()
+		.input('firstName', firstName.toUpperCase().trim())
+		.input('lastName', lastname.toUpperCase().trim())
+		.input('contactNumber', contactNumber)
+		.input('chassisNumber', chasisNumber.toUpperCase().trim())
+		.input('licensePlate', licensePlate.toUpperCase().trim())
+		.input('brand', brand)
+		.input('model', model)
+		.input('motorType', motorType.toUpperCase().trim())
+		.input('gearType', gearType.toUpperCase().trim())
+		.input('vehicleKM', vehicleKm)
+		.input('isInsured', isInsured)
+		.execute('sp_addNewJob');
+	res.send('200');
+});
+
 app.get('/:id/summary', async (req: express.Request, res: express.Response) => {
 	const { recordset: summaryData } = await connection.request().input('receiptID', req.params.id).execute('sp_calculateTotalPrice');
 	const { recordset: parts } = await mssql.query(
