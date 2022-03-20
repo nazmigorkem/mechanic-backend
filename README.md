@@ -20,3 +20,5 @@ Required npm and node.js v15.x or higher. Download it from [https://nodejs.org/e
 * `npm i yarn -g`
 * `yarn install`
 * `yarn dev`
+
+`Note: This is our school project and its done in limited time. Therefore, there can be bugs.`
